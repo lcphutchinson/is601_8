@@ -46,6 +46,15 @@ def test_calculator_add(page, fastapi_server):
     assert page.inner_text('#result') == 'Calculation Result: 15'
 
 @pytest.mark.e2e
+def test_calculator_modulo(page, fastapi_server):
+    """Test the modulo functionality of the calculator."""
+    page.goto('http://localhost:8000')
+    page.fill('#a', '5')
+    page.fill('#b', '2')
+    page.click('button:text("Modulo")')
+    assert page.inner_text('#result') == 'Calculation Result: 1'
+
+@pytest.mark.e2e
 def test_calculator_divide_by_zero(page, fastapi_server):
     """
     Test the divide by zero functionality of the calculator.

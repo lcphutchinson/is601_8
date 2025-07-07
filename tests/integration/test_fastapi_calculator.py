@@ -152,3 +152,25 @@ def test_divide_by_zero_api(client):
     # Assert that the 'error' field contains the correct error message
     assert "Cannot divide by zero!" in response.json()['error'], \
         f"Expected error message 'Cannot divide by zero!', got '{response.json()['error']}'"
+
+# ---------------------------------------------
+# Test Function: test_modulo_api
+# ---------------------------------------------
+
+def test_modulus_api(client):
+    """Test the Modulo API Endpoint"""
+    response = client.post('/modulo', json={'a': 5, 'b': 2})
+    assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
+    assert response.json()['result'] == 1, f"Expected result 1, got {response.json()['result']}"
+
+# ---------------------------------------------
+# Test Function: test_modulo_by_zero_api
+# ---------------------------------------------
+
+def test_modulo_by_zero_api(client):
+    """Test the zero divisor case for the Modulo API Endpoint"""
+    response = client.post('modulo', json={'a': 5, 'b': 0})
+    assert response.status_code == 400, f"Expected status code 400, got {response.status_code}"
+    assert 'error' in response.json(), "Response JSON does not contain 'error' field"
+    assert "Cannot divide by zero!" in response.json()['error'], \
+        f"Expected error message 'Cannot divide by zero!', got '{response.json()['error']}'"
