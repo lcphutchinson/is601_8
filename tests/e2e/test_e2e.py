@@ -5,9 +5,9 @@ import pytest  # Import the pytest framework for writing and running tests
 # The following decorators and functions define E2E tests for the FastAPI calculator application.
 
 @pytest.mark.e2e
-def test_hello_world(page, fastapi_server):
+def test_title_text(page, fastapi_server):
     """
-    Test that the homepage displays "Hello World".
+    Test that the homepage displays "Python Web Calculator".
 
     This test verifies that when a user navigates to the homepage of the application,
     the main header (`<h1>`) correctly displays the text "Hello World". This ensures
@@ -18,7 +18,7 @@ def test_hello_world(page, fastapi_server):
     
     # Use an assertion to check that the text within the first <h1> tag is exactly "Hello World".
     # If the text does not match, the test will fail.
-    assert page.inner_text('h1') == 'Hello World'
+    assert page.inner_text('h1') == 'Python Web Calculator'
 
 @pytest.mark.e2e
 def test_calculator_add(page, fastapi_server):

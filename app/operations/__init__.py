@@ -118,3 +118,37 @@ def divide(a: Number, b: Number) -> float:
     # Perform division of a by b and return the result as a float
     result = a / b
     return result
+
+def modulo(a: Number, b: Number) -> float:
+    """
+    Divide the first number by the second number and return the remainder.
+
+    Parameters:
+    - a (int or float): The dividend.
+    - b (int or float): The divisor.
+
+    Returns:
+    - float: The remainder of the division of a by b.
+
+    Raises:
+    - ValueError: if b is zero, as division by zero is undefined.
+
+    Example:
+    >>> modulo(5, 2)
+    5.0
+    >>> modulo(3.5, 3)
+    0.5
+    >>> modulo(3, 0)
+    Traceback (most recent call last):
+        ...
+    ValueError: Cannot divide by zero!
+    """
+    # Check for zero divisor
+    if b == 0:
+        raise ValueError("Cannot divide by zero!")
+
+    # Perform the operation and return
+    result = a % b
+    return result
+
+
