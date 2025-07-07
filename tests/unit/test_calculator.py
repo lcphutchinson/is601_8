@@ -258,3 +258,15 @@ def test_modulo(a: Number, b: Number, expected: float) -> None:
     result = modulo(a, b)
 
     assert result == expected, f"Expected modulo({a}, {b}) to be {expected}. Got {result}"
+
+# ---------------------------------------------
+# Negative Test Case: Zero Divisor (Modulo)
+# ---------------------------------------------
+
+def test_modulo_by_zero() -> None:
+    with pytest.raises(ValueError) as excinfo:
+        modulo(3, 0)
+
+    assert "Cannot divide by zero!" in str(excinfo.value), \
+        f"Expected error message 'Cannot divide by zero!'. Got '{excinfo.value}'"
+

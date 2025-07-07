@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field, field_validator  # Use @validator for Pydantic 1.x
 from fastapi.exceptions import RequestValidationError
-from app.operations import add, subtract, multiply, divide  # Ensure correct import path
+from app.operations import add, subtract, multiply, divide, modulo  # Ensure correct import path
 import uvicorn
 import logging
 
@@ -114,5 +114,20 @@ async def divide_route(operation: OperationRequest):
         logger.error(f"Divide Operation Internal Error: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+@app.post("/modulo", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
+async def modulo_route(operation: OperationRequest):
+    """
+    Perform a modulus divide across two numbers
+    """
+    try:
+        result = modulo(operation.a, operation.b)
+        return OperationResponse(result=result)
+    except ValueError as e:
+        logger.error(f"Modulo Operation Error: {str(e)}")
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Modulo Operation Internal Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000) 
